@@ -2,6 +2,7 @@ package com.himanshu.instagramclone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
 
     private String allKickBoxers;
 
+
+    private Button btnNextActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -43,6 +47,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
         edtPunchPower = findViewById(R.id.edtPunchPower);
         edtKickSpeed = findViewById(R.id.edtKickSpeed);
         edtKickPower = findViewById(R.id.edtKickPower);
+        btnNextActivity = findViewById(R.id.btnNextActivity);
 
 
         btnSave.setOnClickListener(SignUp.this);            // instead of using the anonymous class, we will use the implemented interface's abstract method.
@@ -111,6 +116,17 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
                     }
                 });
 
+            }
+        });
+
+
+        btnNextActivity.setOnClickListener(new View.OnClickListener()                   // used to switch to another activity
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(SignUp.this, SignUpLoginActivity.class);     // switching from (1 , 2) 1 to 2 activity
+                startActivity(intent);
             }
         });
     }

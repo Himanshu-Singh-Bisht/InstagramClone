@@ -79,6 +79,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
                 allKickBoxers = "";
 
                 ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Kickboxer");
+
+                //queryAll.whereGreaterThan("punchPower" , 1000);                     // where keyword used to get only those objects which satisfy the condition given
+
+                queryAll.setLimit(1);       // setting limit so now only one object can be seen.
                 queryAll.findInBackground(new FindCallback<ParseObject>()               // findInBackground is used to get all the objects present under the same class.
                 {
                     @Override

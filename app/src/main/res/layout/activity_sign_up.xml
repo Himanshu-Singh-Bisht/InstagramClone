@@ -4,120 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="#D1CBC2"
+    tools:context=".MainActivity" >
 
-    <EditText
-        android:id="@+id/edtName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Please Enter the name of KickBoxer"
-        android:inputType="textPersonName"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="238dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/insta_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edtPunchSpeed"
-        android:layout_width="0dp"
+        android:id="@+id/edtEnterEmail"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
-        android:hint="Please Enter the Punch Speed"
-        android:inputType="number"
+        android:hint="Please Enter Email Id"
+        android:inputType="textPersonName"
+        android:textColorHint="#3F51B5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtName" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
-        android:id="@+id/edtPunchPower"
-        android:layout_width="0dp"
+        android:id="@+id/edtEnterUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Please Enter Username"
+        android:inputType="textPersonName"
+        android:textColorHint="#3F51B5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtEnterEmail" />
+
+    <EditText
+        android:id="@+id/edtEnterPassword"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Please Enter the Punch Power"
-        android:inputType="number"
+        android:hint="Please Enter Password"
+        android:inputType="textPersonName"
+        android:textColorHint="#3F51B5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtPunchSpeed" />
-
-    <EditText
-        android:id="@+id/edtKickSpeed"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:hint="Please Enter the Kick Speed"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtPunchPower" />
-
-    <EditText
-        android:id="@+id/edtKickPower"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Please Enter the Kick Power"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtKickSpeed" />
+        app:layout_constraintTop_toBottomOf="@+id/edtEnterUsername" />
 
     <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Save Kick Boxer To Server"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtKickPower" />
-
-    <TextView
-        android:id="@+id/txtGetData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Get Data From Server"
-        android:textColor="#673AB7"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.314"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSave" />
-
-    <Button
-        android:id="@+id/btnGetAllData"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="#FFE53B"
-        android:text="Get All Kickboxers"
-        android:textColor="#6315ED"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtGetData" />
-
-    <Button
-        android:id="@+id/btnNextActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/btnSignUp"
+        android:layout_width="345dp"
+        android:layout_height="57dp"
         android:layout_marginTop="44dp"
-        android:background="#042A49"
-        android:text="Switch To Another Activity"
-        android:textColor="#F3FF07"
+        android:background="#23919F"
+        android:text="Sign Up"
+        android:textColor="#FFF707"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGetAllData" />
+        app:layout_constraintTop_toBottomOf="@+id/edtEnterPassword" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="345dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:background="#2B97A5"
+        android:text="Log In"
+        android:textColor="#FFEB3B"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

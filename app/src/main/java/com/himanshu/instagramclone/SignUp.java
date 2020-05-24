@@ -57,7 +57,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
         // if we want to signUp new user then we want to logout previous user if present
         if(ParseUser.getCurrentUser() != null)
         {
-            ParseUser.getCurrentUser().logOut();
+            //ParseUser.getCurrentUser().logOut();
+
+            transitionToSocialMediaActivity();      // as we don't want user to get logged out we want the user to be at SocialMediaActivity
         }
 
 
@@ -124,6 +126,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
                             progressDialog.dismiss();       // to dismiss the progress dialog.
                         }
                     });
+
+                    transitionToSocialMediaActivity();          // as we want to go to SocialMediaActivity when we get Signned Up
                 }
 
                 break;
@@ -151,5 +155,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
             e.printStackTrace();        // prints error to the logcat
         }
 
+    }
+
+
+    // to make transition to the SocialMediaActivity when the user is Signned Up
+    public void transitionToSocialMediaActivity()
+    {
+        Intent intent = new Intent(SignUp.this , SocialMediaActivity.class);
+        startActivity(intent);
     }
 }

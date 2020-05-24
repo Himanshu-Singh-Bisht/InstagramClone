@@ -2,6 +2,7 @@ package com.himanshu.instagramclone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -41,7 +42,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if(ParseUser.getCurrentUser() != null)
         {
-            ParseUser.getCurrentUser().logOut();
+            // ParseUser.getCurrentUser().logOut();
+            transitionToSocialMediaActivity();          // as we don't want user to get logged out we want the user to be at SocialMediaActivity
         }
 
 
@@ -92,6 +94,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     }
                                 }
                             });
+
+                    transitionToSocialMediaActivity(); // as after logged in we want to go to SocialMediaActivity
                     break;
                 }
             case R.id.btnSignUpLoginActivity :
@@ -116,5 +120,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             e.printStackTrace();        // prints error to the logcat
         }
 
+    }
+
+
+
+    // to make transition to the SocialMediaActivity when the user is Looged In
+    public void transitionToSocialMediaActivity()
+    {
+        Intent intent = new Intent(LoginActivity.this , SocialMediaActivity.class);
+        startActivity(intent);
     }
 }

@@ -3,7 +3,9 @@ package com.himanshu.instagramclone;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -41,6 +43,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         {
             ParseUser.getCurrentUser().logOut();
         }
+
+
+
+        // SUPPOSE AFTER ENTERING ALL DETAILS THE USER PRESS ENTER INSTEAD OF THE SIGNUP THEN WE WANT IT TO STILL SIGNUP, SO WE ARE
+        // MAKING ONKEYlISTENER FOR THE ENTER BUTTON
+        edtLoginPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event)
+            {
+                if(keyCode == KeyEvent.KEYCODE_ENTER  &&  event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    onClick(btnSignUpLoginActivity);
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -49,29 +67,54 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch(view.getId())
         {
             case R.id.btnLoginActivity :
-                ParseUser.logInInBackground(edtLoginEmail.getText().toString(), edtLoginPassword.getText().toString(),
-                        new LogInCallback() {
-                            @Override
-                            public void done(ParseUser user, ParseException e) {
-                                if(user != null && e == null)
-                                {
-                                    FancyToast.makeText(LoginActivity.this , user.getUsername() + " is Logged In Successfully.",
-                                            FancyToast.LENGTH_SHORT , FancyToast.SUCCESS , true).show();
+                if(edtLoginEmail.getText().toString().equals(""))
+                {
+                    FancyToast.makeText(LoginActivity.this , "Email Id is required",
+                            FancyToast.LENGTH_SHORT , FancyToast.SUCCESS , true).show();
+                }
+                else if(edtLoginPassword.getText().toString().equals(""))
+                {
+                    FancyToast.makeText(LoginActivity.this , "Password is required",
+                            FancyToast.LENGTH_SHORT , FancyToast.SUCCESS , true).show();
+                }
+                else
+                {
+                    ParseUser.logInInBackground(edtLoginEmail.getText().toString(), edtLoginPassword.getText().toString(),
+                            new LogInCallback() {
+                                @Override
+                                public void done(ParseUser user, ParseException e) {
+                                    if (user != null && e == null) {
+                                        FancyToast.makeText(LoginActivity.this, user.getUsername() + " is Logged In Successfully.",
+                                                FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+                                    } else {
+                                        FancyToast.makeText(LoginActivity.this, e.getMessage(),
+                                                FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
+                                    }
                                 }
-                                else
-                                {
-                                    FancyToast.makeText(LoginActivity.this , e.getMessage(),
-                                            FancyToast.LENGTH_SHORT , FancyToast.ERROR , true).show();
-                                }
-                            }
-                        });
-                break;
-
+                            });
+                    break;
+                }
             case R.id.btnSignUpLoginActivity :
 
                 finish();           // used to finish the current activity and go back to previous activity.
 
                 break;
         }
+    }
+
+
+    // AS WE WANT THAT WHEN THE USER TAPS ON THE LAYOUT THEN KEYBOARD HIDES (IF PRESENT).
+    public void rootLayoutTapped(View view)
+    {
+        try     // try and catch is used because if keyboard is not present on screen and user taps the layout then it causes the error.
+        {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken() , 0);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();        // prints error to the logcat
+        }
+
     }
 }

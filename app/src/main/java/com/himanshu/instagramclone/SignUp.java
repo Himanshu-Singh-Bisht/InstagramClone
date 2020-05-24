@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -57,6 +59,21 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
         {
             ParseUser.getCurrentUser().logOut();
         }
+
+
+        // SUPPOSE AFTER ENTERING ALL DETAILS THE USER PRESS ENTER INSTEAD OF THE SIGNUP THEN WE WANT IT TO STILL SIGNUP, SO WE ARE
+        // MAKING ONKEYlISTENER FOR THE ENTER BUTTON
+        edtPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event)
+            {
+                if(keyCode == KeyEvent.KEYCODE_ENTER  &&  event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    onClick(btnSignUp);
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -65,35 +82,49 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
         switch (view.getId())
         {
             case R.id.btnSignUp  :
-                final ParseUser appUser = new ParseUser();
-                appUser.setEmail(edtEnterEmail.getText().toString());
-                appUser.setUsername(edtUsername.getText().toString());
-                appUser.setPassword(edtPassword.getText().toString());
+                if(edtEnterEmail.getText().toString().equals(""))       // as EmailId is required to signUp
+                {
+                    FancyToast.makeText(SignUp.this , "Email Id is required",
+                            FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+                }
+                else if(edtUsername.getText().toString().equals(""))        // as Username is required to signUp
+                {
+                    FancyToast.makeText(SignUp.this , "Username is required",
+                            FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+                }
+                else if(edtPassword.getText().toString().equals(""))        // as Password is required to signUp
+                {
+                    FancyToast.makeText(SignUp.this , "Password is required",
+                            FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+                }
+                else
+                {
+                    final ParseUser appUser = new ParseUser();
+                    appUser.setEmail(edtEnterEmail.getText().toString());
+                    appUser.setUsername(edtUsername.getText().toString());
+                    appUser.setPassword(edtPassword.getText().toString());
 
-                // used to show the progress dialog
-                final ProgressDialog progressDialog = new ProgressDialog(this);
-                progressDialog.setMessage("Signing Up" + edtUsername.getText().toString());
-                progressDialog.show();
+                    // used to show the progress dialog
+                    final ProgressDialog progressDialog = new ProgressDialog(this);
+                    progressDialog.setMessage("Signing Up" + edtUsername.getText().toString());
+                    progressDialog.show();
 
 
-                appUser.signUpInBackground(new SignUpCallback() {
-                    @Override
-                    public void done(ParseException e)
-                    {
-                        if(e == null)
-                        {
-                            FancyToast.makeText(SignUp.this , appUser.getUsername() + " is signed up." ,
-                                    FancyToast.LENGTH_SHORT , FancyToast.SUCCESS , true).show();
+                    appUser.signUpInBackground(new SignUpCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                FancyToast.makeText(SignUp.this, appUser.getUsername() + " is signed up.",
+                                        FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+                            } else {
+                                FancyToast.makeText(SignUp.this, e.getMessage(),
+                                        FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
+                            }
+
+                            progressDialog.dismiss();       // to dismiss the progress dialog.
                         }
-                        else
-                        {
-                            FancyToast.makeText(SignUp.this , e.getMessage() ,
-                                    FancyToast.LENGTH_SHORT , FancyToast.ERROR , true).show();
-                        }
-
-                        progressDialog.dismiss();       // to dismiss the progress dialog.
-                    }
-                });
+                    });
+                }
 
                 break;
 
@@ -101,6 +132,24 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
 
                 Intent intent = new Intent(SignUp.this , LoginActivity.class);      // used to change the activity
                 startActivity(intent);
+
+                break;
         }
+    }
+
+
+    // AS WE WANT THAT WHEN THE USER TAPS ON THE LAYOUT THEN KEYBOARD HIDES (IF PRESENT).
+    public void rootLayoutTapped(View view)
+    {
+        try     // try and catch is used because if keyboard is not present on screen and user taps the layout then it causes the error.
+        {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken() , 0);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();        // prints error to the logcat
+        }
+
     }
 }

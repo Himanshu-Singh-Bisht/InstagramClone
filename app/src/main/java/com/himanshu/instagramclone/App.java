@@ -1,6 +1,9 @@
 package com.himanshu.instagramclone;
 
 import android.app.Application;
+import android.content.Context;
+
+import androidx.multidex.MultiDex;
 
 import com.parse.Parse;
 
@@ -19,5 +22,13 @@ public class App extends Application
                 .server("https://parseapi.back4app.com/")
                 .build()
         );
+    }
+
+
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }

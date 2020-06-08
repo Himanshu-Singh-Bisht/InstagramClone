@@ -23,7 +23,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 public class ProfileTab extends Fragment
 {
     // UI COMPONENTS USED BY THE PROFILE TAB FRAGMENT
-    private EditText edtProfileName , edtProfileBio , edtProfileProfession , edtProfieHobbies , edtProfileFavSport;
+    private EditText edtProfileName , edtProfileBio , edtProfileProfession , edtProfileHobbies , edtProfileFavSport;
     private Button btnUpdateInfo;
 
     public ProfileTab()
@@ -45,12 +45,19 @@ public class ProfileTab extends Fragment
         edtProfileName = view.findViewById(R.id.edtProfileName);        // as here view will contain the reference to all the UI components present in fragment.
         edtProfileBio = view.findViewById(R.id.edtProfileBio);
         edtProfileProfession = view.findViewById(R.id.edtProfileProfession);
-        edtProfieHobbies = view.findViewById(R.id.edtProfileHobbies);
+        edtProfileHobbies = view.findViewById(R.id.edtProfileHobbies);
         edtProfileFavSport = view.findViewById(R.id.edtProfileFavSport);
 
         btnUpdateInfo = view.findViewById(R.id.btnUpdateInfo);
 
         final ParseUser parseUser = ParseUser.getCurrentUser();       // gives the current parse user
+
+
+//        edtProfileName.setText(parseUser.get("profileName")+ "");
+//        edtProfileBio.setText(parseUser.get("profileBio") + "");
+//        edtProfileProfession.setText(parseUser.get("profileProfession") + "");
+//        edtProfileHobbies.setText(parseUser.get("profileHobbies") + "");
+//        edtProfileFavSport.setText(parseUser.get("profileFavSport") + "");
 
         // IF THE USER ALREADY UPDATED THE VALUES CORRESPONDING TO THE EDIT TEXT THEN IT WILL SHOW THOSE UPDATED VALUES OTHERWISE EMPTY STRING
         if(parseUser.get("profileName") == null)        // IF VALUE RETURNED FROM SERVER IS NULL CORRESPONDING TO THE KEY
@@ -82,11 +89,11 @@ public class ProfileTab extends Fragment
 
         if(parseUser.get("profileHobbies") == null)
         {
-            edtProfieHobbies.setText("");
+            edtProfileHobbies.setText("");
         }
         else
         {
-            edtProfieHobbies.setText(parseUser.get("profileHobbies") + "");
+            edtProfileHobbies.setText(parseUser.get("profileHobbies") + "");
         }
 
         if(parseUser.get("profileFavSport") == null)
@@ -107,7 +114,7 @@ public class ProfileTab extends Fragment
                 parseUser.put("profileName" , edtProfileName.getText().toString());       // value of Profile name updated on dashbboard for current parse user.
                 parseUser.put("profileBio" , edtProfileBio.getText().toString());
                 parseUser.put("profileProfession" , edtProfileProfession.getText().toString());
-                parseUser.put("profileHobbies" , edtProfieHobbies.getText().toString());
+                parseUser.put("profileHobbies" , edtProfileHobbies.getText().toString());
                 parseUser.put("profileFavSport" ,edtProfileFavSport.getText().toString());
 
                 parseUser.saveInBackground(new SaveCallback() {

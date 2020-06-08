@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             {
                 if(keyCode == KeyEvent.KEYCODE_ENTER  &&  event.getAction() == KeyEvent.ACTION_DOWN)
                 {
-                    onClick(btnSignUpLoginActivity);
+                    onClick(btnLoginActivity);
                 }
                 return false;
             }
@@ -88,6 +88,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     if (user != null && e == null) {
                                         FancyToast.makeText(LoginActivity.this, user.getUsername() + " is Logged In Successfully.",
                                                 FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+
+                                        transitionToSocialMediaActivity(); // as after logged in we want to go to SocialMediaActivity
                                     } else {
                                         FancyToast.makeText(LoginActivity.this, e.getMessage(),
                                                 FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
@@ -95,13 +97,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 }
                             });
 
-                    transitionToSocialMediaActivity(); // as after logged in we want to go to SocialMediaActivity
+                    
                     break;
                 }
             case R.id.btnSignUpLoginActivity :
 
-                finish();           // used to finish the current activity and go back to previous activity.
-
+//                finish();           // used to finish the current activity and go back to previous activity.
+                Intent intent = new Intent(LoginActivity.this , SignUp.class);
+                startActivity(intent);
                 break;
         }
     }

@@ -1,7 +1,5 @@
 package com.himanshu.instagramclone;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,8 +8,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.shashank.sony.fancytoastlib.FancyToast;
@@ -44,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         {
             // ParseUser.getCurrentUser().logOut();
             transitionToSocialMediaActivity();          // as we don't want user to get logged out we want the user to be at SocialMediaActivity
+            finish();
         }
 
 
@@ -79,8 +79,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     FancyToast.makeText(LoginActivity.this , "Password is required",
                             FancyToast.LENGTH_SHORT , FancyToast.SUCCESS , true).show();
                 }
-                else
-                {
+                else {
                     ParseUser.logInInBackground(edtLoginEmail.getText().toString(), edtLoginPassword.getText().toString(),
                             new LogInCallback() {
                                 @Override
@@ -90,6 +89,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
 
                                         transitionToSocialMediaActivity(); // as after logged in we want to go to SocialMediaActivity
+                                        finish();
                                     } else {
                                         FancyToast.makeText(LoginActivity.this, e.getMessage(),
                                                 FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
@@ -97,14 +97,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 }
                             });
 
-                    
-                    break;
                 }
+
+                    break;
+
             case R.id.btnSignUpLoginActivity :
 
 //                finish();           // used to finish the current activity and go back to previous activity.
                 Intent intent = new Intent(LoginActivity.this , SignUp.class);
                 startActivity(intent);
+                finish();
                 break;
         }
     }

@@ -88,7 +88,7 @@ public class SocialMediaActivity extends AppCompatActivity
             ParseUser.getCurrentUser().logOut();
             finish();
 
-            Intent intent = new Intent(SocialMediaActivity.this , LoginActivity.class);
+            Intent intent = new Intent(SocialMediaActivity.this , SignUp.class);
             startActivity(intent);          // to get back to signUp page on logging out.
         }
         return super.onOptionsItemSelected(item);

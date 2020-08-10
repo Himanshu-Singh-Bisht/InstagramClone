@@ -66,7 +66,7 @@ public class UsersPost extends AppCompatActivity
                     for(ParseObject post : objects)
                     {
                         final TextView postDescription = new TextView(UsersPost.this);
-                        postDescription.setText(post.get("image_des") + "");
+                        postDescription.setText((post.get("image_des") == null) ? "No Description Given" : post.get("image_des") + "");
 
                         // getting image from the server
                         ParseFile postPicture = (ParseFile) post.get("picture");

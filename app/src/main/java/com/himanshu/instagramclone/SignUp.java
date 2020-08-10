@@ -60,6 +60,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
             //ParseUser.getCurrentUser().logOut();
 
             transitionToSocialMediaActivity();      // as we don't want user to get logged out we want the user to be at SocialMediaActivity
+            finish();
         }
 
 
@@ -108,7 +109,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
 
                     // used to show the progress dialog
                     final ProgressDialog progressDialog = new ProgressDialog(this);
-                    progressDialog.setMessage("Signing Up" + edtUsername.getText().toString());
+                    progressDialog.setMessage("Signing Up " + edtUsername.getText().toString());
                     progressDialog.show();
 
 
@@ -126,11 +127,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
                             progressDialog.dismiss();       // to dismiss the progress dialog.
 
 
-
                         }
                     });
 
                     transitionToSocialMediaActivity();          // as we want to go to SocialMediaActivity when we get Signned Up
+                    finish();
                 }
 
                 break;
@@ -139,7 +140,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
 
                 Intent intent = new Intent(SignUp.this , LoginActivity.class);      // used to change the activity
                 startActivity(intent);
-
+                finish();
                 break;
         }
     }
